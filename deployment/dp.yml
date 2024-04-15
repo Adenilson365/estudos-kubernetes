@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-dp
+  labels:
+    env: test
+spec:
+  selector:
+    matchLabels:
+      env: test
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        env: test
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+          ports:
+            - containerPort: 80
+              hostPort: 3000
+  replicas: 3
