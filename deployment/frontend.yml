@@ -16,8 +16,5 @@ spec:
     spec:
       containers:
         - name: nginx-container
-          image: nginx
-          ports:
-            - containerPort: 80
-              hostPort: 3000
+          image: nginx:1.25.4
   replicas: 3
