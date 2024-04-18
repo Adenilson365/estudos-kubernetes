@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: db
+  name: db
+  namespace: vote-ns
+spec:
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: db-container
+          image: postgres:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              value: Postgres
+            - name: POSTGRES_USER
+              value: postgres
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: db-data
+      volumes:
+        - name: db-data
+          emptyDir: {}
+  replicas: 1
+      
+
+
+
+    
