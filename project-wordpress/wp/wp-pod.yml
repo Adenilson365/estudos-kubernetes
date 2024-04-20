@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-wp
+  labels:
+    app: wp
+spec:
+  containers:
+    - name: wp-container
+      image: wordpress:latest
+      env:
+        - name: WORDPRESS_DB_HOST
+          value: db-svc
+        - name: WORDPRESS_DB_USER
+          value: wp-user
+        - name: WORDPRESS_DB_PASSWORD
+          value: WpPassword
+        - name: WORDPRESS_DB_NAME
+          value: wp-db
+
+
+          
+
