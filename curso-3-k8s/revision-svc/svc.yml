@@ -12,3 +12,18 @@ spec:
       nodePort: 30080
       targetPort: 80
   type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: queue-svc
+spec:
+  selector:
+    app: queue
+    release: r1
+  ports:
+    - name: queue-svc-port
+      port: 8161
+      nodePort: 30010
+      targetPort: 8161
+  type: NodePort

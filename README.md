@@ -1,4 +1,4 @@
-# estudos em kubernetes
+# Estudos em kubernetes (K8s)
 
 ## Conceitos Básicos ao Deploy - com práticas em Microserviços  e Cloud
 
