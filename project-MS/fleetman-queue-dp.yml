@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: queue-dp
+  labels:
+    app: queue
+spec:
+  selector:
+    matchLabels:
+      app: queue
+  template:
+    metadata:
+      labels:
+        app: queue
+    spec:
+      containers:
+        - name: cont-queue
+          image: richardchesterwood/k8s-fleetman-queue:release1
+  replicas: 1
+    
+
