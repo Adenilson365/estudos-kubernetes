@@ -16,5 +16,12 @@ spec:
       containers:
       - name: mongodb
         image: mongo
+        volumeMounts:
+          - mountPath: /data/db # Caminho no Container onde a App salva dados 
+            name: mongo-persistent-storage
+      volumes:
+        - name: mongo-persistent-storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc
 
 

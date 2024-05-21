@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wp-svc
+spec:
+  selector:
+      env: wp-pod1 #seta pelo label da template
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      nodePort: 30090
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-svc
+spec:
+  selector:
+    test: db-test
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+  type: ClusterIP
+
+---
+apiVersion: v1 
+kind: Service
+metadata:
+  name: adminer
+spec:
+  selector:
+    app: adminer-cont
+  ports:
+    - name: adminer
+      port: 8080
+      targetPort: 8080
+      nodePort: 30091
+  type: NodePort

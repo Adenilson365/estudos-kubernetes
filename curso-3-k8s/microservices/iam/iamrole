@@ -1,0 +1,30 @@
+eksctl create cluster --name fleetman --version 1.23 --node-type=t2.medium --nodes-min=4 --nodes-max=6 --tags env=testeeks --node-volume-type=gp2 --node-volume-size=20 --zones=us-east-1a,us-east-1b,us-east-1c,us-east-1d --profile aws02
+
+
+
+cat <<EOF > trust-policy.json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::851725255384:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/A68053B4D0D2218FD33A9DFEF2C1C0FE"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "oidc.eks.us-east-1.amazonaws.com/id/A68053B4D0D2218FD33A9DFEF2C1C0FE:aud": "sts.amazonaws.com",
+          "oidc.eks.us-east-1.amazonaws.com/id/A68053B4D0D2218FD33A9DFEF2C1C0FE:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+        }
+      }
+    }
+  ]
+}
+EOF
+
+
+aws eks create-addon --profile aws02\
+ --cluster-name fleetman3 \
+ --addon-name aws-ebs-csi-driver \
+ --service-account-role-arn arn:aws:iam::851725255384:role/AmazonEKS_EBS_CSI_DriverRole

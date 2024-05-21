@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
       - name: position-tracker
-        image: richardchesterwood/k8s-fleetman-position-tracker:release2
+        image: richardchesterwood/k8s-fleetman-position-tracker:release4
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
@@ -80,25 +80,17 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-        resources:
-          requests:
-            cpu: 100m
-            memory: 400Mi
 
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: webapp
 spec:
   selector:
     matchLabels:
       app: webapp
-  replicas: 3
+  # replicas: 1
   template: # template for the pods
     metadata:
       labels:
@@ -110,12 +102,3 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
-        resources:
-          requests:
-            cpu: 300m
-            memory: 500Mi
-          limits:
-            cpu: 400m
-            memory: 600Mi
-
-        
