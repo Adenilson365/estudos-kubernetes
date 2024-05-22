@@ -2,6 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: igress-rules
+  annotations:
+    nginx.ingress.kubernets.io/auth-type: basic
+    nginx.ingress.kubernets.io/auth-secret: mycredentials
+    nginx.ingress.kubernets.io/auth-realm: "Password"
 spec:
   rules:
     - host: knz.com
@@ -14,8 +18,11 @@ spec:
                 name: fleetman-webapp 
                 port:
                   number: 80
-          - path: /fila
-            pathType: Exact
+    - host: queue.knz.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
             backend:
               service:
                 name: fleetman-queue

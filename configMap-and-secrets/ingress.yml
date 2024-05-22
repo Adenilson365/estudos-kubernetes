@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: igress-rules
+spec:
+  rules:
+    - host: wordpress.konzelmann.com
+      http:
+        paths: 
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: wp-svc
+                port:
+                  number: 80
+
